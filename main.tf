@@ -240,6 +240,7 @@ resource "aws_launch_template" "gitlab_runner_instance" {
   instance_type          = var.instance_type
   update_default_version = true
   ebs_optimized          = var.runner_instance_ebs_optimized
+  key_name               = "CICD" 
   monitoring {
     enabled = var.runner_instance_enable_monitoring
   }
