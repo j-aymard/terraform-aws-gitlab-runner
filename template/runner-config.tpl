@@ -19,7 +19,7 @@ sentry_dsn = "${sentry_dsn}"
     image = "${runners_image}"
     privileged = ${runners_privileged}
     disable_cache = ${runners_disable_cache}
-    volumes = ["/cache"${runners_additional_volumes}]
+    volumes = [${runners_additional_volumes}]
     shm_size = ${runners_shm_size}
     pull_policy = "${runners_pull_policy}"
     runtime = "${runners_docker_runtime}"
@@ -28,14 +28,6 @@ sentry_dsn = "${sentry_dsn}"
     ${runners_volumes_tmpfs}
   [runners.docker.services_tmpfs]
     ${runners_services_volumes_tmpfs}
-  [runners.cache]
-    Type = "s3"
-    Shared = ${shared_cache}
-    [runners.cache.s3]
-      ServerAddress = "s3.amazonaws.com"
-      BucketName = "${bucket_name}"
-      BucketLocation = "${aws_region}"
-      Insecure = false
   [runners.machine]
     IdleCount = ${runners_idle_count}
     IdleTime = ${runners_idle_time}

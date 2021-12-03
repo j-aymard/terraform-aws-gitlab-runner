@@ -60,7 +60,7 @@ locals {
   template_user_data = templatefile("${path.module}/template/user-data.tpl",
     {
       eip                 = var.enable_eip ? local.template_eip : ""
-      logging             = var.enable_cloudwatch_logging ? local.logging_user_data : ""
+      logging             = ""
       gitlab_runner       = local.template_gitlab_runner
       user_data_trace_log = var.enable_runner_user_data_trace_log
   })
