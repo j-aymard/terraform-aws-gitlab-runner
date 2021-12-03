@@ -150,7 +150,6 @@ locals {
       runners_output_limit              = var.runners_output_limit
       runners_volumes_tmpfs             = join(",", [for v in var.runners_volumes_tmpfs : format("\"%s\" = \"%s\"", v.volume, v.options)])
       runners_services_volumes_tmpfs    = join(",", [for v in var.runners_services_volumes_tmpfs : format("\"%s\" = \"%s\"", v.volume, v.options)])
-      bucket_name                       = local.bucket_name
       shared_cache                      = var.cache_shared
       sentry_dsn                        = var.sentry_dsn
     }
@@ -303,27 +302,6 @@ resource "aws_launch_template" "gitlab_runner_instance" {
   }
 }
 
-################################################################################
-### Create cache bucket
-################################################################################
-#locals {
-#  bucket_name   = var.cache_bucket["create"] ? module.cache.bucket : lookup(var.cache_bucket, "bucket", "")
-#  bucket_policy = var.cache_bucket["create"] ? module.cache.policy_arn : lookup(var.cache_bucket, "policy", "")
-#}
-
-#module "cache" {
-#  source = "./modules/cache"
-#
-#  environment = var.environment
-#  tags        = local.tags
-#
-#  create_cache_bucket                  = var.cache_bucket["create"]
-#  cache_bucket_prefix                  = var.cache_bucket_prefix
-#  cache_bucket_name_include_account_id = var.cache_bucket_name_include_account_id
-#  cache_bucket_set_random_suffix       = var.cache_bucket_set_random_suffix
-#  cache_bucket_versioning              = var.cache_bucket_versioning
-#  cache_expiration_days                = var.cache_expiration_days
-#}
 
 ################################################################################
 ### Trust policy
@@ -396,15 +374,6 @@ resource "aws_iam_role_policy_attachment" "user_defined_policies" {
   count      = length(var.runner_iam_policy_arns)
   role       = aws_iam_role.instance.name
   policy_arn = var.runner_iam_policy_arns[count.index]
-}
-
-################################################################################
-### Policy for the docker machine instance to access cache
-################################################################################
-resource "aws_iam_role_policy_attachment" "docker_machine_cache_instance" {
-  count      = var.cache_bucket["create"] || lookup(var.cache_bucket, "policy", "") != "" ? 1 : 0
-  role       = aws_iam_role.instance.name
-  policy_arn = local.bucket_policy
 }
 
 ################################################################################
