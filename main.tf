@@ -62,6 +62,8 @@ locals {
       eip                 = var.enable_eip ? local.template_eip : ""
       logging             = ""
       gitlab_runner       = local.template_gitlab_runner
+      efs_id              = aws_efs_file_system.efs.id
+      aws_region          = var.aws_region
       user_data_trace_log = var.enable_runner_user_data_trace_log
   })
 

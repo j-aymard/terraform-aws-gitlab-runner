@@ -110,6 +110,28 @@ resource "aws_security_group_rule" "docker_machine_docker_runner" {
   )
 }
 
+# Allow NFS traffic from gitlab-runner agent instances and security group IDs to docker-machine instances
+resource "aws_security_group_rule" "docker_machine_efs_ingress" {
+  type      = "ingress"
+  from_port = 2049
+  to_port   = 2049
+  protocol  = "tcp"
+
+  source_security_group_id = aws_security_group.runner.id
+  security_group_id        = aws_security_group.docker_machine.id
+
+  description = format(
+    "Allow NFS traffic from %s to docker-machine instances in group %s on port 2049",
+    aws_security_group.runner.id,
+    aws_security_group.docker_machine.name
+  )
+}
+
+
+
+
+
+
 ########################################
 ## Security groups to docker-machine  ##
 ########################################

@@ -49,8 +49,6 @@ variable "runners_additional_volumes" {
   default     = []
 }
 
-
-
 variable "enable_cloudwatch_logging" {
   default = false
 }

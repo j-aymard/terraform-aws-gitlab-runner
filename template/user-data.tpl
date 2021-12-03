@@ -25,7 +25,7 @@ git clone https://github.com/aws/efs-utils \
 cd efs-utils \
 ./build-deb.sh \
 //sudo apt-get -y install ./build/amazon-efs-utils*deb \
-//yesmount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-046ad11ccf59ee5e1.efs.eu-west-3.amazonaws.com:/ /efs
+//yesmount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_id}.efs.${aws_region}.amazonaws.com:/ /efs
 " > /home/ec2-user/userdata.sh
 
 ${logging}
