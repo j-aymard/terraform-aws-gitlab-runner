@@ -172,55 +172,6 @@ data "aws_ami" "docker-machine" {
   owners = var.runner_ami_owners
 }
 
-resource "aws_autoscaling_group" "gitlab_runner_instance" {
-  name                      = var.enable_asg_recreation ? "${aws_launch_template.gitlab_runner_instance.name}-asg" : "${var.environment}-as-group"
-  vpc_zone_identifier       = var.subnet_ids_gitlab_runner
-  min_size                  = "1"
-  max_size                  = "1"
-  desired_capacity          = "1"
-  health_check_grace_period = 0
-  max_instance_lifetime     = var.asg_max_instance_lifetime
-  enabled_metrics           = var.metrics_autoscaling
-  tags                      = local.agent_tags_propagated
-
-  launch_template {
-    id      = aws_launch_template.gitlab_runner_instance.id
-    version = aws_launch_template.gitlab_runner_instance.latest_version
-  }
-
-  instance_refresh {
-    strategy = "Rolling"
-    preferences {
-      min_healthy_percentage = 0
-    }
-    triggers = ["tag"]
-  }
-
-  timeouts {
-    delete = var.asg_delete_timeout
-  }
-}
-
-resource "aws_autoscaling_schedule" "scale_in" {
-  count                  = var.enable_schedule ? 1 : 0
-  autoscaling_group_name = aws_autoscaling_group.gitlab_runner_instance.name
-  scheduled_action_name  = "scale_in-${aws_autoscaling_group.gitlab_runner_instance.name}"
-  recurrence             = var.schedule_config["scale_in_recurrence"]
-  min_size               = var.schedule_config["scale_in_count"]
-  desired_capacity       = var.schedule_config["scale_in_count"]
-  max_size               = var.schedule_config["scale_in_count"]
-}
-
-resource "aws_autoscaling_schedule" "scale_out" {
-  count                  = var.enable_schedule ? 1 : 0
-  autoscaling_group_name = aws_autoscaling_group.gitlab_runner_instance.name
-  scheduled_action_name  = "scale_out-${aws_autoscaling_group.gitlab_runner_instance.name}"
-  recurrence             = var.schedule_config["scale_out_recurrence"]
-  min_size               = var.schedule_config["scale_out_count"]
-  desired_capacity       = var.schedule_config["scale_out_count"]
-  max_size               = var.schedule_config["scale_out_count"]
-}
-
 data "aws_ami" "runner" {
   most_recent = "true"
 
