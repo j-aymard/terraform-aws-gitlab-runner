@@ -1,4 +1,7 @@
-
+output "runner_as_group_name" {
+  description = "Name of the autoscaling group for the gitlab-runner instance"
+  value       = aws_autoscaling_group.gitlab_runner_instance.name
+}
 output "runner_agent_role_arn" {
   description = "ARN of the role used for the ec2 instance for the GitLab runner agent."
   value       = aws_iam_role.instance.arn
