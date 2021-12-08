@@ -62,7 +62,7 @@ module "runner" {
   }
 
   runners_privileged         = "true"
-  runners_additional_volumes = ["/certs/client"]
+  runners_additional_volumes = []
 
   runners_volumes_tmpfs = [
     {
