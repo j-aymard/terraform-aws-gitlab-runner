@@ -86,7 +86,7 @@ variable "runner_instance_metadata_options_http_tokens" {
 variable "docker_machine_instance_type" {
   description = "Instance type used for the instances hosting docker-machine."
   type        = string
-  default     = "m5.large"
+  default     = "t3.micro"
 }
 
 variable "docker_machine_spot_price_bid" {
