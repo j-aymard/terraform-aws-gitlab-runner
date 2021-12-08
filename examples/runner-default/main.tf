@@ -52,7 +52,7 @@ module "runner" {
     tag_list           = "docker_spot_runner"
     description        = "runner default - auto"
     locked_to_project  = "true"
-    run_untagged       = "false"
+    run_untagged       = "true"
     maximum_timeout    = "3600"
   }
 
@@ -64,6 +64,7 @@ module "runner" {
   runners_privileged         = "true"
   runners_additional_volumes = ["/efs:/efs:rw"]
   docker_machine_options = ["amazonec2-userdata=/home/ec2-user/userdata.sh"]
+  runners_use_private_address = false
 
   
 
