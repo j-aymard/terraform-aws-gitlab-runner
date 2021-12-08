@@ -64,19 +64,7 @@ module "runner" {
   runners_privileged         = "true"
   runners_additional_volumes = ["/efs:/efs:rw"]
 
-  runners_volumes_tmpfs = [
-    {
-      volume  = "/var/opt/cache",
-      options = "rw,noexec"
-    }
-  ]
-
-  runners_services_volumes_tmpfs = [
-    {
-      volume  = "/var/lib/mysql",
-      options = "rw,noexec"
-    }
-  ]
+  
 
   # working 9 to 5 :)
   runners_machine_autoscaling = [
