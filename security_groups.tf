@@ -116,13 +116,11 @@ resource "aws_security_group_rule" "docker_machine_efs_ingress" {
   from_port = 2049
   to_port   = 2049
   protocol  = "tcp"
-
-  source_security_group_id = aws_security_group.runner.id
   security_group_id        = aws_security_group.docker_machine.id
 
   description = format(
     "Allow NFS traffic from %s to docker-machine instances in group %s on port 2049",
-    aws_security_group.runner.id,
+    aws_security_group.docker_machine.id,
     aws_security_group.docker_machine.name
   )
 }
@@ -135,11 +133,11 @@ resource "aws_security_group_rule" "docker_machine_efs_egress" {
   protocol  = "tcp"
 
   source_security_group_id = aws_security_group.docker_machine.id
-  security_group_id        = aws_security_group.runner.id
+  security_group_id        = aws_security_group.docker_machine.id
 
   description = format(
     "Allow NFS traffic from %s to docker-machine instances in group %s on port 2049",
-    aws_security_group.runner.id,
+    aws_security_group.docker_machine.id,
     aws_security_group.docker_machine.name
   )
 }
