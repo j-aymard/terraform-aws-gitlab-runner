@@ -18,6 +18,8 @@ module "vpc" {
   private_subnets = ["10.0.1.0/24"]
   public_subnets  = ["10.0.101.0/24"]
 
+  enable_dns_support = true
+
   enable_nat_gateway = true
   single_nat_gateway = true
   enable_s3_endpoint = true
@@ -41,6 +43,7 @@ module "runner" {
   runners_name             = var.runner_name
   runners_gitlab_url       = var.gitlab_url
   enable_runner_ssm_access = true
+  
 
   gitlab_runner_security_group_ids = [data.aws_security_group.default.id]
 
