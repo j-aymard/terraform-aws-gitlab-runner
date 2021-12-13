@@ -27,7 +27,7 @@ echo "mkdir /efs" >> /home/ec2-user/userdata.sh
 #echo "cd efs-utils" >> /home/ec2-user/userdata.sh
 #echo "./build-deb.sh" >> /home/ec2-user/userdata.sh
 #echo "sudo apt-get -y install ./build/amazon-efs-utils*deb" >> /home/ec2-user/userdata.sh
-echo "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport 10.0.1.4:/ /efs" >> /home/ec2-user/userdata.sh
+echo "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_ip}:/ /efs" >> /home/ec2-user/userdata.sh
 
 
 ${logging}

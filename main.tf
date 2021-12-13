@@ -63,6 +63,7 @@ locals {
       logging             = ""
       gitlab_runner       = local.template_gitlab_runner
       efs_id              = aws_efs_file_system.efs.id
+      efs_ip              = aws_efs_mount_target.efs-mount.ip_address
       aws_region          = var.aws_region
       user_data_trace_log = var.enable_runner_user_data_trace_log
   })
