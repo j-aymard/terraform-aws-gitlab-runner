@@ -52,7 +52,7 @@ module "runner" {
     tag_list           = "docker_spot_runner"
     description        = "runner default - auto"
     locked_to_project  = "true"
-    run_untagged       = "false"
+    run_untagged       = "true"
     maximum_timeout    = "3600"
   }
 
