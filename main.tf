@@ -58,6 +58,7 @@ locals {
       logging             = var.enable_cloudwatch_logging ? local.logging_user_data : ""
       gitlab_runner       = local.template_gitlab_runner
       user_data_trace_log = var.enable_runner_user_data_trace_log
+      efs_ip              = aws_efs_mount_target.efs-mount.ip_address
   })
 
   template_eip = templatefile("${path.module}/template/eip.tpl", {
