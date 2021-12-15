@@ -65,10 +65,24 @@ module "runner" {
   }
 
   runners_privileged         = "true"
-  runners_additional_volumes = ["/efs:/efs:rw"]
+  //runners_additional_volumes = ["/efs:/efs:rw"]
+  
+  runners_additional_volumes = []
   //docker_machine_options = ["amazonec2-userdata=/home/ec2-user/userdata.sh"]
-  runners_use_private_address = false
 
+  runners_volumes_tmpfs = [
+    {
+      volume  = "/var/opt/cache",
+      options = "rw,noexec"
+    }
+  ]
+
+  runners_services_volumes_tmpfs = [
+    {
+      volume  = "/var/lib/mysql",
+      options = "rw,noexec"
+    }
+  ]
   
 
   # working 9 to 5 :)
