@@ -65,10 +65,8 @@ module "runner" {
   }
 
   runners_privileged         = "true"
-  //runners_additional_volumes = ["/efs:/efs:rw"]
-  
-  runners_additional_volumes = []
-  //docker_machine_options = ["amazonec2-userdata=/home/ec2-user/userdata.sh"]
+  runners_additional_volumes = ["/efs:/efs:rw"]
+  docker_machine_options = ["amazonec2-userdata=/home/ec2-user/userdata.sh"]
 
   runners_volumes_tmpfs = [
     {
