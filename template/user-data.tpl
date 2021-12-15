@@ -21,12 +21,12 @@ echo "#!/bin/bash" >> /home/ec2-user/userdata.sh
 
 echo "echo \"start userdata.sh\"" >> /home/ec2-user/userdata.sh
 echo "mkdir /efs" >> /home/ec2-user/userdata.sh
-#echo "apt-get update" >> /home/ec2-user/userdata.sh
-#echo "apt-get -y install git binutils" >> /home/ec2-user/userdata.sh
-#echo "git clone https://github.com/aws/efs-utils" >> /home/ec2-user/userdata.sh
-#echo "cd efs-utils" >> /home/ec2-user/userdata.sh
-#echo "./build-deb.sh" >> /home/ec2-user/userdata.sh
-#echo "sudo apt-get -y install ./build/amazon-efs-utils*deb" >> /home/ec2-user/userdata.sh
+echo "apt-get update" >> /home/ec2-user/userdata.sh
+echo "apt-get -y install git binutils" >> /home/ec2-user/userdata.sh
+echo "git clone https://github.com/aws/efs-utils" >> /home/ec2-user/userdata.sh
+echo "cd efs-utils" >> /home/ec2-user/userdata.sh
+echo "./build-deb.sh" >> /home/ec2-user/userdata.sh
+echo "sudo apt-get -y install ./build/amazon-efs-utils*deb" >> /home/ec2-user/userdata.sh
 echo "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_ip}:/ /efs" >> /home/ec2-user/userdata.sh
 echo "df -h" >> /home/ec2-user/userdata.sh
 echo "echo \"stop userdata.sh\"" >> /home/ec2-user/userdata.sh
