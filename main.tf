@@ -62,8 +62,7 @@ locals {
       eip                 = var.enable_eip ? local.template_eip : ""
       logging             = ""
       gitlab_runner       = local.template_gitlab_runner
-      efs_id              = aws_efs_file_system.efs.id
-      efs_ip              = aws_efs_mount_target.efs-mount.ip_address
+      efs_ip              = module.efs.ip
       aws_region          = var.aws_region
       user_data_trace_log = var.enable_runner_user_data_trace_log
   })
@@ -305,7 +304,6 @@ resource "aws_launch_template" "gitlab_runner_instance" {
   }
 }
 
-
 ################################################################################
 ### Trust policy
 ################################################################################
@@ -474,4 +472,12 @@ resource "aws_iam_role_policy_attachment" "eip" {
 
   role       = aws_iam_role.instance.name
   policy_arn = aws_iam_policy.eip[0].arn
+}
+
+################################################################################
+### AWS EFS
+################################################################################
+  module "efs" {
+  source          = "./modules/efs"
+  environment = var.environment
 }

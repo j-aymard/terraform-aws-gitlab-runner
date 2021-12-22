@@ -114,3 +114,26 @@ resource "null_resource" "cancel_spot_requests" {
     command = "../../bin/cancel-spot-instances.sh ${self.triggers.environment}"
   }
 }
+
+
+
+################################################################################
+### AWS template launcher for agent
+################################################################################
+module "agent_launch_template" {
+  source          = "../../modules/agent_template_launcher"
+  efs_ip = module.efs.ip
+  agent_subnet_id = module.vpc.private_subnets[0]
+  agent_security_group_ids = [data.aws_security_group.default.id]
+}
+
+################################################################################
+### AWS EFS
+################################################################################
+module "efs" {
+  source          = "../../modules/efs"
+  environment = var.environment
+  security_group = data.aws_security_group.default.id
+  subnet_id = module.vpc.private_subnets[0]
+}
+
