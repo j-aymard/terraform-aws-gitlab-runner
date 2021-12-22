@@ -695,6 +695,12 @@ variable "sentry_dsn" {
   type        = string
 }
 
+variable "efs_ip" {
+  default     = ""
+  description = "IP of AWS efs"
+  type        = string
+}
+
 variable "docker_machine_egress_rules" {
   description = "List of egress rules for the docker-machine instance(s)."
   type = list(object({

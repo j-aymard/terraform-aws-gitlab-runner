@@ -43,7 +43,8 @@ module "runner" {
   runners_name             = var.runner_name
   runners_gitlab_url       = var.gitlab_url
   enable_runner_ssm_access = true
-  
+
+  efs_ip = module.efs.ip  
 
   gitlab_runner_security_group_ids = [data.aws_security_group.default.id]
 
@@ -123,8 +124,8 @@ resource "null_resource" "cancel_spot_requests" {
 module "agent_launch_template" {
   source          = "../../modules/agent_template_launcher"
   efs_ip = module.efs.ip
-  agent_subnet_id = module.vpc.private_subnets[0]
-  agent_security_group_ids = [data.aws_security_group.default.id]
+  subnet_id = module.vpc.private_subnets[0]
+  security_group_ids = [module.runner.runner_sg_id]
 }
 
 ################################################################################
@@ -133,7 +134,7 @@ module "agent_launch_template" {
 module "efs" {
   source          = "../../modules/efs"
   environment = var.environment
-  security_group = data.aws_security_group.default.id
-  subnet_id = module.vpc.private_subnets[0]
+  security_group = module.runner.runner_agent_sg_id
+  subnet_id = element(module.vpc.private_subnets, 0)
 }
 

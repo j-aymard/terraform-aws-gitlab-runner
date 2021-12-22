@@ -37,7 +37,7 @@ output "runner_eip" {
   value       = element(concat(aws_eip.gitlab_runner.*.public_ip, [""]), 0)
 }
 
-output "runner_efs_ip" {
+/*output "runner_efs_ip" {
   description = "IP of the AWS efs"
   value       = module.efs.ip
-}
+}*/
