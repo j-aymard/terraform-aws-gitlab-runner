@@ -21,8 +21,10 @@ module "vpc" {
   enable_dns_support = true
 
   enable_nat_gateway = true
+  enable_vpn_gateway = true
+
   single_nat_gateway = true
-  enable_s3_endpoint = true
+  enable_s3_endpoint = false
 
   tags = {
     Environment = var.environment
