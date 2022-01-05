@@ -20,10 +20,10 @@ module "vpc" {
 
   enable_dns_support = true
 
-  enable_nat_gateway = true
+  enable_nat_gateway = false
   enable_vpn_gateway = true
 
-  single_nat_gateway = true
+  single_nat_gateway = false
   enable_s3_endpoint = false
 
   tags = {
