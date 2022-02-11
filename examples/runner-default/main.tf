@@ -12,11 +12,11 @@ module "vpc" {
   version = "2.70"
 
   name = "vpc-${var.environment}"
-  cidr = "10.0.0.0/16"
+  cidr = "172.17.0.0/16"
 
   azs             = [data.aws_availability_zones.available.names[0]]
-  private_subnets = ["10.0.1.0/24"]
-  public_subnets  = ["10.0.101.0/24"]
+  private_subnets = ["172.17.1.0/24"]
+  public_subnets  = ["172.17.101.0/24"]
 
   enable_dns_support = true
 
