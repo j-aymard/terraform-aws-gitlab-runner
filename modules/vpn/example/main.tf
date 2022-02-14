@@ -27,7 +27,6 @@ module "vpn_gateway" {
   tunnel1_phase2_integrity_algorithms = ["SHA2-256"]
   tunnel1_phase2_lifetime_seconds = 3600
   tunnel1_ike_versions = ["ikev1"]
-
 }
 
 resource "aws_customer_gateway" "main" {
