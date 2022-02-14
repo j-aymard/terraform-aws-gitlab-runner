@@ -1,3 +1,9 @@
+variable "aws_region" {
+  description = "AWS region."
+  type        = string
+  default     = "eu-west-3"
+}
+
 variable "vpn_gateway_id" {
   description = "The id of the VPN Gateway."
   type        = string

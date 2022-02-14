@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "environment" {
   description = "A name that identifies the environment, will used as prefix and for tagging."
   type        = string
-  default     = "runners-st"
+  default     = "st-cicd-fr"
 }
 
 variable "runner_name" {

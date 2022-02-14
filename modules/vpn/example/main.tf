@@ -1,5 +1,5 @@
 provider "aws" {
-  region = aws_region
+  region = var.aws_region
 }
 
 module "vpn_gateway" {
@@ -8,12 +8,12 @@ module "vpn_gateway" {
   vpn_connection_static_routes_only         = false
   #vpn_connection_static_routes_destinations = ["10.100.0.1/32", "10.200.0.1/32"]
 
-  vpn_gateway_id      = "vgw-087fbae8e03c43747"//module.vpc.vgw_id
+  vpn_gateway_id      = "vgw-0b9736fdd34403bf7"//module.vpc.vgw_id
   customer_gateway_id = aws_customer_gateway.main.id
 
-  vpc_id                       = "vpc-0c32d41fba811a47a"
-  vpc_subnet_route_table_ids   = ["rtb-0b3a12dc0e87ba7d5"]
-  vpc_subnet_route_table_count = length(["rtb-0b3a12dc0e87ba7d5"])
+  vpc_id                       = "vpc-06034ac8346a84ae9"
+  vpc_subnet_route_table_ids   = ["rtb-0e04827d7a9957c5d"]
+  vpc_subnet_route_table_count = length(["rtb-0e04827d7a9957c5d"])
 
   # tunnel inside cidr & preshared keys (optional)
   tunnel1_inside_cidr   = "169.254.33.88/30"
