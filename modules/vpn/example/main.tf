@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-west-3"
+  region = aws_region
 }
 
 module "vpn_gateway" {
