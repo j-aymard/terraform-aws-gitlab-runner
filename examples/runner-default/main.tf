@@ -98,8 +98,13 @@ module "runner" {
 
   runners_pre_build_script = <<EOT
   '''
-  echo 'multiline 1'
-  echo 'multiline 2'
+  command -v ssh-agent >/dev/null || ( yum check-update -y && yum install openssh-client -y )
+  eval $(ssh-agent -s)
+  echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+  chmod 644 ~/.ssh/known_hosts
   '''
   EOT
 

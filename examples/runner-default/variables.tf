@@ -19,13 +19,13 @@ variable "runner_name" {
 variable "gitlab_url" {
   description = "URL of the gitlab instance to connect to."
   type        = string
-  default     = "https://gitlab.com"
+  default     = "https://fr-software.smart-trade.net/gitlab/"
 }
 
 variable "registration_token" {
   description = "gitlab cicd token"
   type        = string
-  default     = "u3bb6LQzoD_zAMX4NqDm"
+  default     = "u4U9iKVasnAmqZZj_STb"
 }
 
 variable "timezone" {
