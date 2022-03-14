@@ -8,6 +8,8 @@ fi
 # Add current hostname to hosts file
 tee /etc/hosts <<EOL
 127.0.0.1   localhost localhost.localdomain $(hostname)
+188.165.40.206  fr-software.smart-trade.net
+188.165.40.5  software.smart-trade.net
 EOL
 
 ${eip}
@@ -34,6 +36,9 @@ echo "apt-get -y install nfs-common" >> /home/ec2-user/userdata.sh
 #echo "sudo apt-get -y install ./build/amazon-efs-utils*deb" >> /home/ec2-user/userdata.sh
 echo "mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport ${efs_ip}:/ /efs" >> /home/ec2-user/userdata.sh
 echo "df -h" >> /home/ec2-user/userdata.sh
+echo "echo \"188.165.40.206  fr-software.smart-trade.net\" >> /etc/hosts" >> /home/ec2-user/userdata.sh
+echo "echo \"188.165.40.5  software.smart-trade.net\" >> /etc/hosts" >> /home/ec2-user/userdata.sh
+
 echo "echo \"stop userdata.sh\"" >> /home/ec2-user/userdata.sh
 
 

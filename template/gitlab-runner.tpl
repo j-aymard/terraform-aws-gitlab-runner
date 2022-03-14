@@ -1,4 +1,10 @@
 mkdir -p /etc/gitlab-runner
+
+# allow connexion between gitlab-runner and st's gitlab server must be done on docker machine side too
+mkdir /etc/gitlab-runner/certs
+echo | openssl s_client -connect fr-software.smart-trade.net:443  2>/dev/null | openssl x509 > /etc/gitlab-runner/certs/fr-software.smart-trade.net.crt
+
+
 cat > /etc/gitlab-runner/config.toml <<- EOF
 
 ${runners_config}
