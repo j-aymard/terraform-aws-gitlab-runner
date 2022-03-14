@@ -96,7 +96,7 @@ module "runner" {
     }
   ]
 
-  runners_pre_build_script = <<EOT
+  runners_pre_clone_script = <<EOT
   '''
   command -v ssh-agent >/dev/null || ( yum check-update -y && yum install openssh-client -y )
   eval $(ssh-agent -s)
